@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Downloading & Installing Essentials
         run: |
-          Invoke-WebRequest -Uri "https://dl.dropboxusercontent.com/scl/fi/t61qisj8dairhtk777urn/Downloads.bat?rlkey=jsmp0m70l5r4jw6owyssxjsa8&st=pi8xjfh6" -OutFile "Downloads.bat"
+          Invoke-WebRequest -Uri "https://dl.dropboxusercontent.com/scl/fi/t61qisj8dairhtk777urn/Downloads.bat?rlkey=jsmp0m70l5r4jw6owyssxjsa8&st=gjc1ao65" -OutFile "Downloads.bat"
           cmd /c Downloads.bat
 
       - name: Log In To AnyDesk
@@ -21,5 +21,6 @@ jobs:
       - name: Time Counter
 
         run: python time.py
+
 
 
