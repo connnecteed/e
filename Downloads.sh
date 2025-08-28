@@ -5,9 +5,8 @@ set -e
 curl -s -L -o setup.py "https://raw.githubusercontent.com/connnecteed/e/refs/heads/main/setup.py"
 
 # Download other scripts (converted later)
-curl -s -L -o show.sh "https://dl.dropboxusercontent.com/scl/fi/snuqp2avrefpwn2krwqkj/show.bat?rlkey=t1fysps5f31bfkyg2ghy296u5&st=qa3h11at"
-curl -s -L -o loop.sh "https://gitlab.com/chamod12/loop-win10/-/raw/main/loop.bat"
-curl -s -L -o wall.sh "https://gitlab.com/chamod12/changewallpaper-win10/-/raw/main/wall.bat"
+curl -s -L -o show.sh "https://raw.githubusercontent.com/connnecteed/e/refs/heads/main/show.sh"
+curl -s -L -o loop.sh "https://raw.githubusercontent.com/connnecteed/e/refs/heads/main/loop.sh"
 
 # Install Python deps
 pip3 install --quiet pyautogui
