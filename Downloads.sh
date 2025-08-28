@@ -8,7 +8,8 @@ curl -s -L -o setup.py "https://raw.githubusercontent.com/connnecteed/e/refs/hea
 curl -s -L -o show.sh "https://raw.githubusercontent.com/connnecteed/e/refs/heads/main/show.sh"
 curl -s -L -o loop.sh "https://raw.githubusercontent.com/connnecteed/e/refs/heads/main/loop.sh"
 
-# Install Python deps
+python3 -m venv venv           # create a virtual environment
+source venv/bin/activate       # activate it
 pip install --quiet pyautogui
 
 # macOS doesn’t support choco/vcredist/WinRAR/Telegram.exe installs
