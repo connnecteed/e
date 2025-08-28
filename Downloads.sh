@@ -9,7 +9,7 @@ curl -s -L -o show.sh "https://raw.githubusercontent.com/connnecteed/e/refs/head
 curl -s -L -o loop.sh "https://raw.githubusercontent.com/connnecteed/e/refs/heads/main/loop.sh"
 
 # Install Python deps
-pip3 install --quiet pyautogui
+pip install --quiet pyautogui
 
 # macOS doesn’t support choco/vcredist/WinRAR/Telegram.exe installs
 echo "[INFO] Skipping Windows-only installers (Telegram, WinRAR, vcredist, VMQuickConfig)."
@@ -18,10 +18,10 @@ echo "[INFO] Skipping Windows-only installers (Telegram, WinRAR, vcredist, VMQui
 sudo dscl . -passwd /Users/runner TheDisa1a || true
 
 # Run pyautogui click
-python3 - << 'EOF'
+python - << 'EOF'
 import pyautogui as pag
 pag.click(897, 64, duration=2)
 EOF
 
 # Run setup.py
-python3 setup.py
+python setup.py
