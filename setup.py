@@ -1,24 +1,41 @@
 import os
 import subprocess
-import requests
 import platform
-arch = platform.machine()
+import requests
+import shutil
+import time
 
-print("arch:", arch)
+arch = platform.machine()
+print("Detected architecture:", arch)
+
 def install_rustdesk():
     if arch == "x86_64":
-        pkg_url = "https://github.com/rustdesk/rustdesk/releases/latest/download/rustdesk-1.3.6-x86_64.pkg"
-    elif arch == "arm64" or arch == "aarch64":
-        pkg_url = "https://github.com/rustdesk/rustdesk/releases/latest/download/rustdesk-1.3.6-aarch64.pkg"
+        dmg_url = "https://github.com/rustdesk/rustdesk/releases/download/1.4.1/rustdesk-1.4.1-x86_64.dmg"
+    elif arch in ["arm64", "aarch64"]:
+        dmg_url = "https://github.com/rustdesk/rustdesk/releases/download/1.4.1/rustdesk-1.4.1-aarch64.dmg"
     else:
         raise RuntimeError(f"Unsupported architecture: {arch}")
 
-    pkg_file = "rustdesk.pkg"
+    dmg_file = "rustdesk.dmg"
     print(f"Downloading RustDesk for {arch}...")
-    subprocess.run(["curl", "-L", "-o", pkg_file, pkg_url], check=True)
-    subprocess.run(["sudo", "installer", "-pkg", pkg_file, "-target", "/"], check=True)
-    print("RustDesk installed successfully.")
+    subprocess.run(["curl", "-fSL", "-o", dmg_file, dmg_url], check=True)
 
+    if not os.path.exists(dmg_file) or os.path.getsize(dmg_file) < 1000000:
+        raise RuntimeError(f"Downloaded dmg seems invalid: {dmg_file}")
+
+    # Mount the DMG
+    mount_point = "/Volumes/RustDesk"
+    subprocess.run(["hdiutil", "attach", dmg_file, "-mountpoint", mount_point], check=True)
+
+    # Copy RustDesk.app to /Applications
+    app_path = os.path.join(mount_point, "RustDesk.app")
+    if not os.path.exists(app_path):
+        raise RuntimeError("RustDesk.app not found in DMG.")
+    subprocess.run(["cp", "-R", app_path, "/Applications/"], check=True)
+
+    # Unmount DMG
+    subprocess.run(["hdiutil", "detach", mount_point], check=True)
+    print("RustDesk installed successfully.")
 
 def configure_rustdesk(password="TheDisa1a"):
     config_dir = os.path.expanduser("~/Library/Application Support/rustdesk")
@@ -35,11 +52,9 @@ password = "{password}"
 
     print(f"RustDesk password set to {password}")
 
-
 def start_rustdesk():
     print("Starting RustDesk...")
     subprocess.run(["open", "-a", "RustDesk"], check=True)
-
 
 def show_id_or_ip():
     id_file = os.path.expanduser("~/Library/Application Support/rustdesk/id")
@@ -54,9 +69,9 @@ def show_id_or_ip():
         except Exception as e:
             print("Could not get public IP:", e)
 
-
 if __name__ == "__main__":
     install_rustdesk()
     configure_rustdesk()
     start_rustdesk()
+    time.sleep(5)  # Give RustDesk a moment to start
     show_id_or_ip()
